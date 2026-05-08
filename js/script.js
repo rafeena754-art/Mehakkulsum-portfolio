@@ -23,8 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuIcon = menuBtn?.querySelector('i');
 
     if (menuBtn && navLinksContainer) {
+        console.log('Mobile menu initialized');
         menuBtn.addEventListener('click', () => {
+            console.log('Menu button clicked');
             navLinksContainer.classList.toggle('active');
+            document.body.style.overflow = navLinksContainer.classList.contains('active') ? 'hidden' : 'auto';
             
             // Toggle icon
             if (menuIcon) {
@@ -42,13 +45,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const links = navLinksContainer.querySelectorAll('a');
         links.forEach(link => {
             link.addEventListener('click', () => {
+                console.log('Nav link clicked, closing menu');
                 navLinksContainer.classList.remove('active');
+                document.body.style.overflow = 'auto';
                 if (menuIcon) {
                     menuIcon.classList.remove('fa-xmark');
                     menuIcon.classList.add('fa-bars');
                 }
             });
         });
+    } else {
+        console.error('Menu button or nav links container not found!', { menuBtn, navLinksContainer });
     }
 
     // Active link highlighting
