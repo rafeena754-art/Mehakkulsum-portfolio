@@ -19,10 +19,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mobile Menu logic (to be expanded if needed)
     const menuBtn = document.querySelector('.menu-btn');
-    if (menuBtn) {
+    const navLinksContainer = document.querySelector('.nav-links');
+    const menuIcon = menuBtn?.querySelector('i');
+
+    if (menuBtn && navLinksContainer) {
         menuBtn.addEventListener('click', () => {
-            // Toggle mobile nav here
-            alert('Mobile menu coming soon!');
+            navLinksContainer.classList.toggle('active');
+            
+            // Toggle icon
+            if (menuIcon) {
+                if (navLinksContainer.classList.contains('active')) {
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-xmark');
+                } else {
+                    menuIcon.classList.remove('fa-xmark');
+                    menuIcon.classList.add('fa-bars');
+                }
+            }
+        });
+
+        // Close menu when a link is clicked
+        const links = navLinksContainer.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinksContainer.classList.remove('active');
+                if (menuIcon) {
+                    menuIcon.classList.remove('fa-xmark');
+                    menuIcon.classList.add('fa-bars');
+                }
+            });
         });
     }
 
